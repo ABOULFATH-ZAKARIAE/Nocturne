@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- What Google shows: title (≤ 60 chars) and description (≤ 155 chars) -->
+    <title>Nocturne Op. 1 — Composed for the Night</title>
+    <meta name="description" content="Nocturne Op. 1 — a car composed for the night. Scroll through five movements in smoke and light, choose its key, and reserve a private listening." />
+    <link rel="canonical" href="%SITE_URL%/" />
+    <meta name="theme-color" content="#050506" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- What Facebook, Instagram, LinkedIn, WhatsApp… show when the link is shared (Open Graph) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Nocturne" />
+    <meta property="og:title" content="Nocturne Op. 1 — Composed for the Night" />
+    <meta property="og:description" content="A car composed for the night. Five movements in smoke and light." />
+    <meta property="og:url" content="%SITE_URL%/" />
+    <meta property="og:image" content="%SITE_URL%/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="A red concept sports car in a dark garage with wet floor, light strips and smoke" />
+    <!-- Same for X / Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Nocturne Op. 1 — Composed for the Night" />
+    <meta name="twitter:description" content="A car composed for the night. Five movements in smoke and light." />
+    <meta name="twitter:image" content="%SITE_URL%/og-image.jpg" />
+
+    <!-- Structured data: tells search engines exactly what this page is -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Nocturne Op. 1",
+        "url": "%SITE_URL%/",
+        "description": "A cinematic car website told like a piece of night music: five movements, a choice of key, and a private listening at the end.",
+        "inLanguage": "en",
+        "author": { "@type": "Person", "name": "Zakariae Aboulfath" }
+      }
+    </script>
+
+    <!-- Fonts are served from this site (see src/main.tsx), never from Google: visitors' IP addresses
+         are not sent to a third party, and the security policy can block every outside server. -->
+
+    <!-- Speed: the opening picture is the most important download — fetch it first, at the right size -->
+    <link rel="preload" as="image" href="/film/hero-d.webp" media="(min-aspect-ratio: 1/1)" fetchpriority="high" />
+    <link rel="preload" as="image" href="/film/hero-m.webp" media="(max-aspect-ratio: 1/1)" fetchpriority="high" />
+  </head>
+  <body>
+    <div id="root">
+      <!-- Shown until the app starts (and read by search engines): real text, not just a canvas -->
+      <main class="seo-fallback">
+        <h1>Nocturne Op. 1</h1>
+        <p>A car composed for the night. Five movements in smoke and light: light, wheels, lines, the cockpit and the city at night. Choose its key, then reserve a private listening.</p>
+      </main>
+    </div>
+    <noscript>
+      <p class="noscript">Nocturne works best with JavaScript turned on.</p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

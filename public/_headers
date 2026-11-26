@@ -1,0 +1,19 @@
+# Security headers for the live site. Netlify and Cloudflare Pages read this file automatically;
+# vercel.json holds the same rules for Vercel. They tell browsers to:
+#  - load code, styles, fonts and pictures only from this site (blocks injected scripts / XSS),
+#  - refuse to show the site inside another site's frame (clickjacking),
+#  - always use HTTPS, not guess file types, and not leak full URLs to other sites,
+#  - never give the page camera, microphone, location or payment access.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; frame-ancestors 'none'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+/film/*
+  Cache-Control: public, max-age=604800
