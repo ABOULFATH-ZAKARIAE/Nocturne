@@ -6,6 +6,8 @@ import { finePointer, reducedMotion } from './ready'
  * Mouse only (phones keep their normal touch behaviour). The cursor is a camera focus reticle:
  * four corner brackets around a small dot. Over anything clickable the brackets slide out and lock
  * onto it (like a camera finding focus) and turn red; move away and they snap back to the pointer.
+ * When the visitor uses the keyboard (Tab) the page gets the class `kbd`: the normal cursor comes
+ * back and the reticle is hidden (see index.css), until the mouse moves again.
  */
 const SIZE = 26
 
@@ -34,20 +36,23 @@ export function Cursor() {
         bx(px - SIZE / 2); by(py - SIZE / 2); bw(SIZE); bh(SIZE)
       }
     }
-    const move = (e: PointerEvent) => { px = e.clientX; py = e.clientY; update() }
+    const root = document.documentElement
+    const key = (e: KeyboardEvent) => { if (e.key === 'Tab') root.classList.add('kbd') }
+    const move = (e: PointerEvent) => { root.classList.remove('kbd'); px = e.clientX; py = e.clientY; update() }
     const down = () => box.current!.classList.add('is-down')
     const up = () => box.current!.classList.remove('is-down')
     const leave = () => gsap.to([box.current, dot.current], { opacity: 0, duration: 0.3 })
     const enter = () => gsap.to([box.current, dot.current], { opacity: 1, duration: 0.3 })
     window.addEventListener('pointermove', move)
+    window.addEventListener('keydown', key)
     window.addEventListener('scroll', update, { passive: true })
     window.addEventListener('pointerdown', down); window.addEventListener('pointerup', up)
     document.addEventListener('pointerleave', leave); document.addEventListener('pointerenter', enter)
     return () => {
-      window.removeEventListener('pointermove', move); window.removeEventListener('scroll', update)
+      window.removeEventListener('pointermove', move); window.removeEventListener('keydown', key); window.removeEventListener('scroll', update)
       window.removeEventListener('pointerdown', down); window.removeEventListener('pointerup', up)
       document.removeEventListener('pointerleave', leave); document.removeEventListener('pointerenter', enter)
-      document.documentElement.classList.remove('has-cursor')
+      root.classList.remove('has-cursor', 'kbd')
     }
   }, [])
 

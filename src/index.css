@@ -20,6 +20,19 @@ img, canvas { display: block; }
 a { color: inherit; }
 ::selection { background: var(--accent); color: #fff; }
 
+/* ---------- keyboard: visible focus + skip link ---------- */
+a:focus-visible, button:focus-visible, [role="radio"]:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 3px;
+}
+.btn:focus-visible { outline-offset: 4px; }
+main:focus { outline: none; } /* only the skip link's landing spot: not a control */
+.skip {
+  position: fixed; left: var(--pad); top: 12px; z-index: 110; padding: 12px 20px; border-radius: 999px;
+  background: var(--ink); color: #000; font: 600 14px Inter, system-ui, sans-serif; text-decoration: none;
+  transform: translateY(-200%); /* hidden above the screen until it gets keyboard focus */
+}
+.skip:focus, .skip:focus-visible { transform: none; }
+
 /* text shown before the app starts (search engines read it too) */
 .seo-fallback { display: grid; place-content: center; min-height: 100vh; text-align: center; padding: 0 24px; }
 .seo-fallback h1 { font: 800 clamp(36px, 7vw, 96px)/.95 'Inter Tight', sans-serif; margin: 0 0 12px; letter-spacing: -.03em; }
@@ -229,6 +242,9 @@ main { position: relative; z-index: 1; }
 .reticle, .reticle-dot { position: fixed; left: 0; top: 0; z-index: 90; pointer-events: none; display: none; }
 .has-cursor .reticle, .has-cursor .reticle-dot { display: block; }
 .has-cursor, .has-cursor a, .has-cursor button { cursor: none; }
+/* keyboard in use (class set by Cursor.tsx on Tab, removed on mouse move): normal cursor, no reticle */
+.has-cursor.kbd, .has-cursor.kbd a, .has-cursor.kbd button { cursor: auto; }
+.has-cursor.kbd .reticle, .has-cursor.kbd .reticle-dot { display: none; }
 .reticle { width: 26px; height: 26px; transform: translate(-100px, -100px); }
 .reticle i { position: absolute; width: 8px; height: 8px; border: 0 solid rgba(255,255,255,.85); transition: border-color .3s, width .3s var(--ease), height .3s var(--ease); }
 .reticle i:nth-child(1) { left: 0; top: 0; border-left-width: 1.5px; border-top-width: 1.5px; }
@@ -247,7 +263,7 @@ main { position: relative; z-index: 1; }
 .index__item { display: flex; align-items: center; gap: 12px; padding: 4px 0; background: none; border: 0; color: var(--muted); cursor: pointer; }
 .index__tick { width: 10px; height: 1px; background: currentColor; transition: width .4s var(--ease), background .4s; }
 .index__label { font-size: 10px; letter-spacing: .24em; text-transform: uppercase; opacity: 0; transform: translateX(8px); transition: opacity .4s, transform .4s var(--ease); white-space: nowrap; }
-.index:hover .index__label, .index__item.is-on .index__label { opacity: 1; transform: none; }
+.index:hover .index__label, .index:has(:focus-visible) .index__label, .index__item.is-on .index__label { opacity: 1; transform: none; }
 .index__item.is-on { color: #fff; }
 .index__item.is-on .index__tick { width: 26px; background: var(--accent); }
 

@@ -25,7 +25,7 @@ export default function App() {
   return (
     <>
       <Nav />
-      <main>
+      <main id="main" tabIndex={-1}>
         <Hero />
         {CHAPTERS.map((c) => (
           <Fragment key={c.id}>
